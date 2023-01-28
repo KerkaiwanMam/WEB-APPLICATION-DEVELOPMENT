@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #blueTitle {
+            color: blue;
+            background-color: yellow;
+            text-align: center;
+        }
+
+        #pinkTitle {
+            color: pink;
+            text-align: center;
+        }
+
+        #reporterInfo {
+            color: skyblue;
+        }
+
+        #dateInfo {
+            color: pink;
+        }
+
+        #profilePic {
+            position: absolute;
+            right: 10%;
+            width: 150px;
+            top: 20%;
+            border-style: solid;
+            border-radius: 5px;
+            border-color: aqua;
+        } 
+
+        .container {
+            display: flex;
+            flex-direction: row;
+            flex-grow: 2;
+            justify-content: space-evenly;
+        }
+
+        #classProgress {
+            appearance: none;
+            background-color: skyblue;
+            position:absolute
+        }
+    </style>
+</head>
+
+<body>
+<div id="blueTitle" width="100%">
+        <h1>
+            SW Studio Today
+        </h1>
+    </div>
+
+    <div>
+        <h2 id="pinkTitle">The record of the CSS class</h2>
+        <p id="reporterInfo">
+            Report by <br>
+            Mr. or Ms. Xxxx xxxx <br>
+            (nickname) <br>
+            ID yyyyyyyy <br>
+        </p>
+        <p id="dateInfo">
+            Feb 14, 2020
+        </p>
+        <img id="profilePic"
+            src="https://previews.123rf.com/images/gmast3r/gmast3r1809/gmast3r180900199/109840480-brunette-businessman-avatar-man-face-profile-icon-concept-online-support-service-male-cartoon-charac.jpg"
+            alt="profilePicture">
+    </div>
+
+    <div class="container">
+        <div class = "item">
+            <h3>Introduction</h3>
+            <p>describe your background about CSS e.g.</p>
+            <ul>
+                <li>do you know CSS?</li>
+                <li>Have you ever been using CSS? before?</li>
+                <li>Have you ever worked with CSS works?</li>
+                <li>Have you any idea how css works?</li>
+                <li>What are you expecting from CSS?</li>
+                <li>etc.</li>
+            </ul>
+            <div>
+                <p>Progress of today's class</p>
+                <progress id="classProgress" value="32" max="100"></progress>
+            </div>
+        </div>
+        <div>
+            <h3>Expandsions</h3>
+            <p>
+                Describe your expectation for today's class<br>
+                You can list it like this:
+            <ol>
+                <li>expect#1</li>
+                <li>expect#2</li>
+                <li>expect#3</li>
+            </ol>
+            </p>
+        </div>
+    </div>
+
+
+</body>
+
+</html>
