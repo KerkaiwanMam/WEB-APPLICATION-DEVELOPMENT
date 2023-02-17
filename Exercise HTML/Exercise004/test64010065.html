@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head></head>
+<body>
+    <div id="main_container">
+    </div>
+    <script>
+        
+
+        const headerContainer = document.createElement("div");
+        headerContainer.classList.add('header-container')
+        headerContainer.innerHTML = "<h2>Exercise 04: JavaScript&DOM</h2>";
+        headerContainer.style.height = '80px'
+        headerContainer.style.position = "relative"
+        main_container.appendChild(headerContainer);
+
+        const displayTime_button = document.createElement("button");
+        displayTime_button.innerHTML = "Click me to display Date and Time";
+        displayTime_button.style.marginBlockStart = '15px'
+        headerContainer.appendChild(displayTime_button);
+        displayTime_button.style.position = 'absolute'
+        displayTime_button.style.bottom = '0'
+
+        //personal
+        const personal_container = document.createElement("div");
+        personal_container.classList.add('personal-Container')
+        personal_container.style.marginBlockStart = '20px'
+        main_container.appendChild(personal_container);
+
+        const personal_link = document.createElement("a");
+        personal_link.innerHTML = "Personal info"
+        personal_link.style.color = 'violet'
+        personal_link.href = '#'
+
+
+        personal_container.appendChild(personal_link);
+
+        //text in personal ย่อหน้า
+        const personal_ul = document.createElement('ul')
+        personal_ul.hidden = true;
+
+        personal_link.onmouseover = () => {
+            personal_link.style.background = 'yellow'
+            personal_link.style.color = 'blue'
+        }
+
+        personal_link.onmouseout = () => {
+            personal_link.style.background = 'none'
+            personal_link.style.color = 'violet'
+        }
+
+        personal_link.onclick = () => {
+
+            personal_ul.hidden = !personal_ul.hidden;
+        };
+
+        //name_Info
+        const personalName = document.createElement('li')
+        personalName.innerText = "Name: Kerkkaiwan Supaseab, ID: 64010065";
+        personal_ul.appendChild(personalName)
+
+        //subject
+        const personalSub = document.createElement('li')
+        personalSub.innerText = "Subject: Web Application Development";
+        personal_ul.appendChild(personalSub)
+
+        //semestep
+        const personalSem = document.createElement('li')
+        personalSem.innerText = "Semester: 2/2565";
+        personal_ul.appendChild(personalSem)
+        
+        personal_container.appendChild(personal_ul);
+
+
+       
+        //SnapShot 
+        const snapshots_header = document.createElement('div')
+        snapshots_header.classList.add('snapShot-container')
+        snapshots_header.style.marginBlockStart = "30px"
+        const snapShot_text = document.createElement('h1')
+        snapShot_text.innerText = "Snapshots"
+        snapshots_header.appendChild(snapShot_text)
+
+        
+
+
+        // arr img
+        const snapShotImg_ul = document.createElement('ul')
+        snapshots_header.appendChild(snapShotImg_ul)
+        let snapShot_data = [
+            ["Fireworks", "https://www.mozilla.org/media/img/firefox/template/page-image-master.1b6efe3d5631.jpg"],
+            ["Crest", "https://i5.walmartimages.com/asr/58ae9c59-5d41-43c9-af6c-275ca9557950.aa2452dce6624247abd1ab45eac0becc.jpeg"],
+            ["Action", "http://greggfraley.com/wp-content/uploads/2014/06/take_action.jpg"],
+            ["Buffalo", "https://img.freepik.com/premium-vector/golden-buffalo-logo_229751-48.jpg"],
+        ]
+        //click
+        snapShot_data.forEach((dataImg) => {
+            let snapShot_li = document.createElement('li')
+            snapShotImg_ul.appendChild(snapShot_li)
+
+            let snapShot_link = document.createElement('a')
+            snapShot_link.innerHTML = dataImg[0]
+            snapShot_link.href = "#"
+            snapShot_li.addEventListener("click", () => {
+                footer_snapeShot.src = dataImg[1]
+            })
+            snapShot_li.appendChild(snapShot_link)
+        })
+        
+        //img footer
+        const footer_snapeShot = document.createElement('img');
+        footer_snapeShot.style.width = "35%"
+        footer_snapeShot.src = 'https://scontent.fbkk7-2.fna.fbcdn.net/v/t1.6435-9/71474858_2597855143609088_3350498082029568000_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=973b4a&_nc_ohc=D9vPmoanzp8AX_K0C6X&_nc_ht=scontent.fbkk7-2.fna&oh=00_AfDSxDbLM6_gIEkoyTmswZGqUouiaIH38lFy0dVdNKasQg&oe=64150DED'
+        snapshots_header.appendChild(footer_snapeShot)
+
+        main_container.appendChild(snapshots_header)
+
+
+
+        //work 
+        let workker1 = null;
+        let createWorker = () => {
+            let my_worker = new Worker("./64010065.js");
+            my_worker.onmessage = (message) => {
+                console.log(message)
+                displayTime_button.innerHTML = message.data;
+                changeColorBg();
+                changeColorText();
+
+            }
+            return my_worker;
+        };
+
+        
+        //button
+        let toggle_btn = false
+        displayTime_button.addEventListener("click", () => {
+            if (!(toggle_btn)) {
+                worker1 = createWorker()
+                displayTime_button.style.bottom = `${headerContainer.offsetHeight - displayTime_button.offsetHeight}px`
+                displayTime_button.style.right = '0'
+                // displayTime_button.innerHTML = new Date().toString();
+                worker1.postMessage("test")
+
+            }
+            else {
+                worker1.terminate()
+                displayTime_button.style.bottom = '0'
+                displayTime_button.style.right = `${headerContainer.offsetWidth - displayTime_button.offsetWidth - 1}px`
+                
+            }
+            toggle_btn = !toggle_btn
+            console.log(toggle_btn)
+        });
+
+        //changColorbg
+        const color_data = ['#FCF19D', '#ACFC9D', '#9DFCE6', '#ABCFF3', '#D8AFFC', '#FCAFED']
+        let indexcolor = 0;
+        const changeColorBg = () => {
+            displayTime_button.style.backgroundColor = color_data[indexcolor];
+            indexcolor += 1;
+            indexcolor %= color_data.length;
+        };
+
+        //changColortext
+        const color_text = ['#F90514', '#0B7B09', '#28118F', '#021345', '#460366', '#A70631']
+        let indexcolorText = 0;
+        const changeColorText = () => {
+            displayTime_button.style.color = color_text[indexcolorText];
+            indexcolorText += 1;
+            indexcolorText %= color_text.length;
+        };
+
+
+       
+    </script>
+</body>
+</html>
